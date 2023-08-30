@@ -1,3 +1,5 @@
+import fs from "fs"
+
 class DogCard {
 
     constructor(attr){
@@ -9,16 +11,56 @@ class DogCard {
 }
 
 let cards = []
-cards.push(
-    new DogCard({id:0, text:"Піклуйся про здоров’я", color:"#FF6F35"}),
-    new DogCard({id:1, text:"Причепури красунчика", color:"#AECB54"}),
-    new DogCard({id:2, text:"sfdslkf;lskdа", color:"#000"}),
-    new DogCard({id:3, text:"Причепури красунчика", color:"#AECB54"}),
-    new DogCard({id:4, text:"Причепури здоров’я", color:"green"}),
-)
 
-const getDogCards = function(){
+
+let LoadData = () => {
+    console.log(`LoadData Loaded`);
+fs.readFile("bd/cards.json", 'utf8', (err, data) => {
+    console.log(`LoadData readFile Loaded`);
+    if (err) {
+        // if not found
+        if(err.errno === -4058 ) {
+            console.error(err);
+            fs.writeFile("bd/cards.json", '[]', (err) => {
+                if (err)
+                    console.log(err);
+                else {
+                    console.log("Ok!\n");
+                }
+            });
+        } else {
+            console.log(err);
+        }
+    } else {
+        console.log(`LoadData parse Loaded`);
+       cards = JSON.parse(data)
+        console.log(`Loaded ${cards.length}`);
+
+
+        console.log(`cards: ${cards}`);
+        return cards
+}
+});
+console.log(`\n`);
+}
+
+let NewCardId = () => {
+    console.log(`NewCardId Loaded`);
+    console.log(`NewCardID ${cards}`)
+    //console.log(`NewId: ${cards[cards.length-1].id+1} LastId: ${cards[cards.length-1].id}`);
+    //return cards[cards.length-1].id+1
+    console.log(`\n`);   
+}
+
+
+LoadData()
+NewCardId()
+
+const getDogCards = ()=>{
+    console.log(`getDogCards Loaded`);
+    console.log(`\n`);
     return cards
+    
 }
 
 export {getDogCards}
