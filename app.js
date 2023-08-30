@@ -1,37 +1,35 @@
-import express from 'express'
-import { getDogCards } from './dogcard.js'
-// import { DogCard } from './dogcard.js'
+import express from 'express';
+import { getDogCards, LoadData, NewCardId, DogCard } from './dogcard.js';
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
-app.set("view engine", "ejs")
-app.use(express.static("js"))
+app.set("view engine", "ejs");
+app.use(express.static("js"));
 
-app.get("/", (req,res) =>{
-// res.json(getDogCards())
-res.render("index", {cards: getDogCards()})
-})
-app.get("/form", (req,res) =>{
-  // res.json(getDogCards())
-  res.render("form")
-  })
+// Use express.urlencoded middleware before your route handlers
+app.use(express.urlencoded({ extended: true }));
 
-app.post("/newcard", (req,res) =>{
-  new DogCard()
-  res.json("zbs")
+LoadData();
 
-})
-
-
-var server = app.listen(port, () => {
-console.log(getDogCards())
-
-process.stdin.once('data',  (input) => {
-  process.exit();
-  
+app.get("/", (req, res) => {
+  res.render("index", { cards: getDogCards() });
 });
 
+app.get("/form", (req, res) => {
+  res.render("form");
+});
 
-})
+app.post("/newcard", (req, res) => {
+  let card = new DogCard(NewCardId(), req.body.text, req.body.color);
+  console.log(req.body);
+  res.json("ss");
+});
 
+var server = app.listen(port, () => {
+  console.log(getDogCards());
+
+  process.stdin.once('data', (input) => {
+    process.exit();
+  });
+});

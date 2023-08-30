@@ -2,10 +2,10 @@ import fs from "fs"
 
 class DogCard {
 
-    constructor(attr){
-        this.id= attr.id
-        this.text= attr.text
-        this.color= attr.color
+    constructor(id, text, color){
+        this.id= id
+        this.text= text
+        this.color= color
     }
 
 }
@@ -46,21 +46,22 @@ console.log(`\n`);
 
 let NewCardId = () => {
     console.log(`NewCardId Loaded`);
+    console.log(`NewId: ${cards[cards.length-1].id+1} LastId: ${cards[cards.length-1].id}`);
     console.log(`NewCardID ${cards}`)
-    //console.log(`NewId: ${cards[cards.length-1].id+1} LastId: ${cards[cards.length-1].id}`);
-    //return cards[cards.length-1].id+1
-    console.log(`\n`);   
+    return cards[cards.length-1].id+1
+   
 }
 
 
-LoadData()
-NewCardId()
+//LoadData()
+// NewCardId()
 
 const getDogCards = ()=>{
     console.log(`getDogCards Loaded`);
     console.log(`\n`);
+    
     return cards
     
 }
 
-export {getDogCards}
+export {getDogCards, LoadData, NewCardId, DogCard}

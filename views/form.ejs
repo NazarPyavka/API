@@ -6,14 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/newcard" method="post">
+    <form action="/newcard" method="post" enctype="multipart/form-data">
         <label>
           Name:
-          <input name="text" autocomplete="name" />
+          <input id="text" name="text" autocomplete="name" />
         </label>
         <label  for="color-picker">Color:</label>
-        <input name="color" type="color" value="#ff0000" id="color-picker" />
-        <button>Save</button>
+        <input  id="color" name="color" type="color" value="#ff0000" id="color-picker" />
+        <button type="submit">Save</button> 
       </form>
 </body>
 </html>
